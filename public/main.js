@@ -28,7 +28,10 @@ const animateCanvas = (ctx,item,items)=>{
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
     const point = new Point(0,0,0,20);
+    const point2 = new Point(100,0,0,20);
+    point2.fillColor = 'hsl(180 100% 50%)';
     point.render(ctx);
+    point2.render(ctx);
 
 
 })();

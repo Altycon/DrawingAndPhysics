@@ -1,7 +1,6 @@
 {
-  "name": "physicsengine",
+  "name": "drawingandphysics",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -11,5 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Altycon/DrawingAndPhysics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Altycon/DrawingAndPhysics/issues"
+  },
+  "homepage": "https://github.com/Altycon/DrawingAndPhysics#readme",
+  "description": ""
 }
