@@ -30,8 +30,11 @@ const animateCanvas = (ctx,item,items)=>{
     const point = new Point(0,0,0,20);
     const point2 = new Point(100,0,0,20);
     point2.fillColor = 'hsl(180 100% 50%)';
+    const point3 = new Point(-100, -30, 0, 15);
+    point3.fillColor =  'hsl(300 100% 50%)';
     point.render(ctx);
     point2.render(ctx);
+    point3.render(ctx);
 
 
 })();
