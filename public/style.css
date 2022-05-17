@@ -1,0 +1,16 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+body{
+    min-height: 100vh;
+    background-image: radial-gradient(hsl(220 13% 34%),hsl(239 58% 20%));
+}
+h1{
+    padding: 2rem;
+    text-align: center;
+}
+#canvas{
+    display: block;
+    margin: 0 auto;
+    border: 1px solid hsl(180 100% 50%);
+    width: 50vw;
+    height: 50vh;
+}
