@@ -25,8 +25,7 @@ const animateCanvas = (ctx,cube,sphere)=>{
 
             //cube.Start(ctx);
 
-            sphere.rotateXAxis(ctx, 0.01);
-            sphere.render(ctx);
+            sphere.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -44,7 +43,7 @@ const animateCanvas = (ctx,cube,sphere)=>{
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
     const cube = new Cube(0,0,0,100,'hsl(180 100% 50%)');
-    const sphere = new Sphere(0,0,0,300,'hsl(180 100% 50%)');
+    const sphere = new Sphere(100,0,0,200,'hsl(180 100% 50%)');
 
     animateCanvas(ctx,cube,sphere);
 

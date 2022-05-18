@@ -9,7 +9,7 @@ import { Point } from "../components/point.js";
 
 export class Sphere{
     constructor(x,y,z,radius,color){
-        this.position = new Vector(x,y,z);
+        this.center = new Vector(x,y,z);
         this.radius = radius;
         this.resolution = 30;
         this.strokeStyle = 'transparent';
@@ -18,9 +18,16 @@ export class Sphere{
         this.startArc = 0;
         this.endArc = Math.PI*2;
         this.points = this.createPoints();
+        //this.editPoints();
+        this.angleZ = 0.01;
     }
     printPoints(){
         console.log(this.points)
+    }
+    editPoints(){
+        this.points.forEach( point => {
+            //point.fillColor = 'hsl(300 100% 50%)';
+        })
     }
     createPoints(){
         const pointArray = []
@@ -45,7 +52,7 @@ export class Sphere{
         }
         return pointArray;
     }
-    rotateXAxis(ctx,angle){
+    rotate(angle){
         const distance = 0.5;
         for(let i = 0; i < this.points.length; i++){
             const point = this.points[i];
@@ -65,22 +72,18 @@ export class Sphere{
             point.position.y = project2d.y;
             point.position.z = project2d.z;
 
-            point.render(ctx);
+            //point.render(ctx);
         } 
     }
-    render(ctx){
-        ctx.beginPath();
-        ctx.strokeStyle = this.strokeStyle;
-        ctx.fillStyle = this.fillStyle;
-        ctx.arc(this.position.x, this.position.y, this.pointRadius, this.startArc, this.endArc);
-        ctx.fill();
-        ctx.stroke();
-
-        for(let i = 0; i < this.points.length; i++){
-            const point = this.points[i];
-
-            point.render(ctx)
-        }
+    renderPoints(ctx){
+        this.points.forEach( point => point.render(ctx))
+    }
+    Start(ctx){
+        ctx.save();
+        ctx.translate(this.center.x,this.center.y);
+        this.rotate(this.angleZ);
+        this.renderPoints(ctx);
+        ctx.restore();
     }
 }
 
