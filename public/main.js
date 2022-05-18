@@ -2,6 +2,7 @@ import { Tools } from "./js/tools.js";
 import { Point } from "./js/components/point.js";
 import { Cube } from "./js/shapes/cube.js";
 import { Sphere } from "./js/shapes/sphere.js";
+import { Pyramid } from "./js/shapes/pyramid.js";
 
 const { 
         random, 
@@ -14,7 +15,7 @@ const {
     } = Tools;
 
 
-const animateCanvas = (ctx,cube,sphere)=>{
+const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -25,7 +26,10 @@ const animateCanvas = (ctx,cube,sphere)=>{
 
             //cube.Start(ctx);
 
-            sphere.Start(ctx);
+            //sphere.Start(ctx);
+            
+            pyramid.Start(ctx);
+			pyramid2.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -44,7 +48,10 @@ const animateCanvas = (ctx,cube,sphere)=>{
     
     const cube = new Cube(0,0,0,100,'hsl(180 100% 50%)');
     const sphere = new Sphere(100,0,0,200,'hsl(180 100% 50%)');
+    
+    const pyramid = new Pyramid(0,0,0,100,`hsl(60 100% 50%)`);
+	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 
-    animateCanvas(ctx,cube,sphere);
+    animateCanvas(ctx,cube,sphere, pyramid, pyramid2);
 
 })();
