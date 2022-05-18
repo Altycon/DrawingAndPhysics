@@ -59,10 +59,10 @@ export class Pyramid{
 	}
 	rotate(angle){
 		this.points.forEach( point=> {
-			let rotated = CMatrix.multiply(CMatrix.rotateZ(angle), point.position);
-			rotated = CMatrix.multiply(CMatrix.rotateX(angle), rotated);
-			//rotated = CMatrix.multiply(CMatrix.rotateY(angle), rotated);
-			const projected2d = CMatrix.multiply(CMatrix.Projection_Matrix, rotated);
+			let rotated = CMatrix.Multiply(CMatrix.rotateZ(angle), point.position);
+			rotated = CMatrix.Multiply(CMatrix.rotateX(angle), rotated);
+			//rotated = CMatrix.Multiply(CMatrix.rotateY(angle), rotated);
+			const projected2d = CMatrix.Multiply(CMatrix.Projection, rotated);
 			
 			point.position.x = projected2d.x;
 			point.position.y = projected2d.y;

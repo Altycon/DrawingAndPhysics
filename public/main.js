@@ -24,9 +24,9 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
 
             clearPolarCanvas(ctx);
 
-            //cube.Start(ctx);
+            cube.Start(ctx);
 
-            //sphere.Start(ctx);
+            sphere.Start(ctx);
             
             pyramid.Start(ctx);
 			pyramid2.Start(ctx);
@@ -46,10 +46,10 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
     const CANVAS_HEIGHT = canvas.height;
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
-    const cube = new Cube(0,0,0,100,'hsl(180 100% 50%)');
+    const cube = new Cube(300,-300,0,100,'hsl(180 100% 50%)');
     const sphere = new Sphere(100,0,0,200,'hsl(180 100% 50%)');
     
-    const pyramid = new Pyramid(0,0,0,100,`hsl(60 100% 50%)`);
+    const pyramid = new Pyramid(0,300,0,100,`hsl(60 100% 50%)`);
 	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 
     animateCanvas(ctx,cube,sphere, pyramid, pyramid2);
