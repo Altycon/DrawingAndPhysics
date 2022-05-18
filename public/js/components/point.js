@@ -1,8 +1,8 @@
 "use strict";
 
-import { Vector, CVectors } from "../vector.js";
+import { Vector } from "./vector.js";
 
-export default class Point{
+export class Point{
     constructor(x,y,z,radius){
         this.position = new Vector(x,y,z);
         this.radius = radius || 1;
@@ -22,6 +22,4 @@ export default class Point{
         ctx.fill();
         //ctx.stroke();
     }
-}
-
-export { Point };
+};

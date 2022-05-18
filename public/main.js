@@ -1,21 +1,37 @@
 import { Tools } from "./js/tools.js";
-import { Point } from "./js/shapes/point.js";
+import { Point } from "./js/components/point.js";
+import { Cube } from "./js/shapes/cube.js";
+import { Sphere } from "./js/shapes/sphere.js";
 
-const { random, scale, getDPI, fixCanvasForMobile, clearCanvas, clearPolarCanvas } = Tools;
+const { 
+        random, 
+        scale, 
+        getDPI, 
+        fixCanvasForMobile, 
+        clearCanvas, 
+        clearPolarCanvas, 
+        PerlinNoise 
+    } = Tools;
 
 
-const animateCanvas = (ctx,item,items)=>{
+const animateCanvas = (ctx,cube,sphere)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
         if(lastTime != null){
             //code here
 
+            clearPolarCanvas(ctx);
+
+            //cube.Start(ctx);
+
+            sphere.rotateXAxis(ctx, 0.01);
+            sphere.render(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
     }
-    animate;
+    animate();
 }
 (function init(){
 
@@ -27,16 +43,9 @@ const animateCanvas = (ctx,item,items)=>{
     const CANVAS_HEIGHT = canvas.height;
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
-    const point = new Point(0,0,0,20);
-    const point2 = new Point(100,0,0,20);
-    point2.fillColor = 'hsl(180 100% 50%)';
-    const point3 = new Point(-100, -30, 0, 15);
-    point3.fillColor =  'hsl(300 100% 50%)';
-    const point4 = new Point(0, 100, 0, 10);
-    point4.fillColor =  'hsl(60 100% 50%)';
-    point.render(ctx);
-    point2.render(ctx);
-    point3.render(ctx);
-    point4.render(ctx);
+    const cube = new Cube(0,0,0,100,'hsl(180 100% 50%)');
+    const sphere = new Sphere(0,0,0,300,'hsl(180 100% 50%)');
+
+    animateCanvas(ctx,cube,sphere);
 
 })();

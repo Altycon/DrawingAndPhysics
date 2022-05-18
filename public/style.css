@@ -4,6 +4,7 @@ body{
     background-image: radial-gradient(hsl(220 13% 34%),hsl(239 58% 20%));
 }
 h1{
+    font-size: 3rem;
     padding: 2rem;
     text-align: center;
 }
@@ -11,6 +12,12 @@ h1{
     display: block;
     margin: 0 auto;
     border: 1px solid hsl(180 100% 50%);
-    width: 50vw;
-    height: 50vh;
+    width: 66vw;
+    height: 66vh;
+}
+@media only screen and (max-width: 700px){
+    #canvas{
+        width: 90vw;
+        height: 90vh;
+    }
 }
