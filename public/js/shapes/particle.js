@@ -1,7 +1,7 @@
 "use strict";
 
 import { Tools } from "../tools.js";
-const { random } = Tools;
+const { random, scale } = Tools;
 
 import { Vector } from "../components/vector.js";
 
@@ -14,14 +14,18 @@ export class Particle{
         this.color = 'hsl(0 0% 0%)';
         this.startArc = 0;
         this.endArc = Math.PI*2;
+        this.angle = 0;
+        this.theta = 0.1;
+        this.randomVelocityInit();
     }
     randomVelocityInit(){
+        this.speed = random(1,3);
         this.velocity.x = random(-this.speed,this.speed);
         this.velocity.y = random(-this.speed,this.speed);
     }
     pulse(){
         this.radius = scale(Math.sin(this.angle), -1, 1, 2, this.size);
-        this.angle += this.dtheta;
+        this.angle += this.theta;
         //this.draw();
     }
     move(canvas){

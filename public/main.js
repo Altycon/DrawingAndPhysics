@@ -4,6 +4,7 @@ import { Cube } from "./js/shapes/cube.js";
 import { Sphere } from "./js/shapes/sphere.js";
 import { Pyramid } from "./js/shapes/pyramid.js";
 import { GameOfLife } from "./js/animations/gameoflife.js";
+import { PulsingParticles } from "./js/animations/pulsing-particles.js";
 
 const { 
         random, 
@@ -16,7 +17,7 @@ const {
     } = Tools;
 
 
-const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game)=>{
+const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game,Particle_Animation)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -32,7 +33,9 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game)=>{
             //pyramid.Start(ctx);
 			//pyramid2.Start(ctx);
 
-            game.Start(ctx);
+            //game.Start(ctx);
+
+            Particle_Animation.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -56,7 +59,10 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game)=>{
 	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 	
 	const game = new GameOfLife(canvas);
-	
-    animateCanvas(ctx,cube,sphere, pyramid, pyramid2, game);
+	game.color = 'hsl(300 100% 50%)';
+
+    const Particle_Animation = new PulsingParticles(canvas,100);
+    console.log(Particle_Animation.particles)
+    animateCanvas(ctx,cube,sphere, pyramid, pyramid2, game, Particle_Animation);
 
 })();

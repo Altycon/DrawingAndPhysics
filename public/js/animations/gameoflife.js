@@ -11,7 +11,7 @@ export class GameOfLife{
 		this.display = canvas;
 		this.width = this.display.width;
 		this.height = this.display.height;
-		this.resolution = 10;
+		this.resolution = this.#dpi > 1 ? 10:5;
 		this.columns = Math.floor(this.width / this.resolution);
 		this.rows = Math.floor(this.height / this.resolution);
 		this.grid = new Array(this.columns).fill(null)
