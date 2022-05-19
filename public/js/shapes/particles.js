@@ -19,6 +19,11 @@ export class Particle{
         this.velocity.x = random(-this.speed,this.speed);
         this.velocity.y = random(-this.speed,this.speed);
     }
+    pulse(){
+        this.radius = scale(Math.sin(this.angle), -1, 1, 2, this.size);
+        this.angle += this.dtheta;
+        //this.draw();
+    }
     move(canvas){
         
         if(this.position.x < -canvas.width/2 || this.position.x > canvas.width/2){
