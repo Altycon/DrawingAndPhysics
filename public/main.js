@@ -3,7 +3,7 @@ import { Point } from "./js/components/point.js";
 import { Cube } from "./js/shapes/cube.js";
 import { Sphere } from "./js/shapes/sphere.js";
 import { Pyramid } from "./js/shapes/pyramid.js";
-import { GameOfLife } from "./js/animations/game-of-life.js";
+import { GameOfLife } from "./js/animations/gameoflife.js";
 
 const { 
         random, 
@@ -53,9 +53,9 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
     const pyramid = new Pyramid(0,300,0,100,`hsl(60 100% 50%)`);
 	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 	
-	const game = new GameOfLife(canvas);
-	//game.Start(ctx)
-	alert(game)
+	const game = new GameOfLife();
+	game.Start(ctx)
+	alert("hello")
     //animateCanvas(ctx,cube,sphere, pyramid, pyramid2);
 
 })();

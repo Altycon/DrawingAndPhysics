@@ -24,9 +24,4 @@ export class GameOfLife{
 			}
 		}
 	}
-	Start(ctx){
-		alert(this.grid[3][5])
-	}
 }
-//const game = new GameOfLife(document.createElement('canvas'));
-// console.table(game.grid);
