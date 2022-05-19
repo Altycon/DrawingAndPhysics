@@ -53,9 +53,8 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
     const pyramid = new Pyramid(0,300,0,100,`hsl(60 100% 50%)`);
 	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 	
-	const game = new GameOfLife();
+	const game = new GameOfLife(canvas);
 	game.Start(ctx)
-	alert("hello")
     //animateCanvas(ctx,cube,sphere, pyramid, pyramid2);
 
 })();
