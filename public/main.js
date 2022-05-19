@@ -61,7 +61,7 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game,Particle_Animatio
 	const game = new GameOfLife(canvas);
 	game.color = 'hsl(300 100% 50%)';
 
-    const Particle_Animation = new PulsingParticles(canvas,100);
+    const Particle_Animation = new PulsingParticles(canvas,500);
     console.log(Particle_Animation.particles)
     animateCanvas(ctx,cube,sphere, pyramid, pyramid2, game, Particle_Animation);
 
