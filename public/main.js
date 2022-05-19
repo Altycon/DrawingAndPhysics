@@ -16,7 +16,7 @@ const {
     } = Tools;
 
 
-const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
+const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2,game)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -25,12 +25,14 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
 
             clearPolarCanvas(ctx);
 
-            cube.Start(ctx);
+            //cube.Start(ctx);
 
-            sphere.Start(ctx);
+            //sphere.Start(ctx);
             
-            pyramid.Start(ctx);
-			pyramid2.Start(ctx);
+            //pyramid.Start(ctx);
+			//pyramid2.Start(ctx);
+
+            game.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -54,7 +56,7 @@ const animateCanvas = (ctx,cube,sphere, pyramid, pyramid2)=>{
 	const pyramid2 = new Pyramid(-200,-200,0,200,`hsl(324 100% 50%)`);
 	
 	const game = new GameOfLife(canvas);
-	game.Start(ctx)
-    //animateCanvas(ctx,cube,sphere, pyramid, pyramid2);
+	
+    animateCanvas(ctx,cube,sphere, pyramid, pyramid2, game);
 
 })();
