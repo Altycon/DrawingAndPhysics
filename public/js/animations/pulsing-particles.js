@@ -16,24 +16,9 @@ export class PulsingParticles{
         this.color = 'hsl(0 100% 100%)';
         this.particles = this.createParticles(this.number_Of_Particles);
     }
-    particleCollision(){
-    	for(let i = 0; i < this.particles.length; i++){
-    		const particle1 = this.particles[i];
-    		for(let j = 0; j < this.particles.length; j++){
-    			const particle2 = this.particles[j];
-    			if(particle1 === particle2) continue;
-    			const distance = CVectors.getDistance(particle1.position, particle2.position);
-    			if(distance < particle1.radius + particle2.radius){
-    				particle1.velocity.x = particle2.velocity.x * -1;
-    				particle1.velocity.y = particle2.velocity.y * -1;
-    			}
-    		}
-    	}
-   }
     update(){
         for(let i = 0; i < this.particles.length; i++){
             this.particles[i].pulse();
-            this.particles[i].move(this.display);
         }
     }
     createParticles(num){
@@ -45,6 +30,7 @@ export class PulsingParticles{
             const radius = random(1,3,true);
             const particle = new Particle(x,y,z,radius);
             particle.color = this.color;
+            particle.theta = random(0.01,0.1);
             arr.push(particle);
             
         }
@@ -56,7 +42,6 @@ export class PulsingParticles{
         }
     }
     Start(ctx){
-        this.particleCollision();
         this.update();
         this.renderParticles(ctx);
     }
