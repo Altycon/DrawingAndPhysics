@@ -16,18 +16,48 @@ export class Firework{
         this.startArc = 0;
         this.endArc = Math.PI*2;
         this.gravity = new Vector(0,random(0.11, 0.13));
+        this.particles = [];
+        this.createParticles(10)
     }
     applyForce(force){
         this.body.velocity.add(force)
     }
+    createParticles(num){
+    	for(let i = 0; i < num; i++){
+    		const x = this.body.position.x;
+    		const y = this.body.position.y;
+    		const z = 0;
+    		const radius = 1;
+    		const color = `hsl(${random(0,360,true)} 100% 50%)`;
+    		const v = new Vector(random(-2,2), random(-2,2),0);
+    		const particle = new Particle(x,y,z,radius);
+    		particle.color = color;
+    		particle.velocity = v;
+    		this.particles.push(particle)
+		}	
+    }
+    explode(canvas){
+    	for(let i = 0; i < this.particles.length; i++){
+    		this.particles[i].move(canvas)
+		}	
+    }
+    renderParticles(ctx){
+    	for(let i = 0; i < this.particles.length; i++){
+    		this.particles[i].render(ctx);
+		}	
+   }
     update(canvas){
         //update/movement
-        
+		if(this.body.velocity.y >= 0){
+			this.explode(canvas);
+			
+		}
         this.applyForce(this.gravity)
         this.body.move(canvas)
     }
     render(ctx){
-        this.body.render(ctx)
+        this.body.render(ctx);
+        this.renderParticles(ctx);
     }
     Start(ctx){
         this.update(ctx.canvas);
