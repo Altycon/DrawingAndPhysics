@@ -77,7 +77,7 @@ const animateCanvas = (ctx,firework,firework2)=>{
         
     );
     //firework.render(ctx);
-
+	alert(firework.particles[0].velocity.y)
     animateCanvas(ctx,firework,firework2);
 
 })();

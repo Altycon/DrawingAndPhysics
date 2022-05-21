@@ -24,15 +24,15 @@ export class Firework{
     }
     createParticles(num){
     	for(let i = 0; i < num; i++){
-    		const x = this.body.position.x;
-    		const y = this.body.position.y;
+    		const x = 0;
+    		const y = 0;
     		const z = 0;
     		const radius = 1;
     		const color = `hsl(${random(0,360,true)} 100% 50%)`;
-    		const v = new Vector(random(-2,2), random(-2,2),0);
+    		//const v = new Vector(random(-2,2), random(-2,2),0);
     		const particle = new Particle(x,y,z,radius);
     		particle.color = color;
-    		particle.velocity = v;
+    		particle.randomVelocityInit()
     		this.particles.push(particle)
 		}	
     }
@@ -50,7 +50,6 @@ export class Firework{
         //update/movement
 		if(this.body.velocity.y >= 0){
 			this.explode(canvas);
-			
 		}
         this.applyForce(this.gravity)
         this.body.move(canvas)
