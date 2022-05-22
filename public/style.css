@@ -1,7 +1,7 @@
 *{margin: 0;padding: 0;box-sizing: border-box;}
 body{
     min-height: 100vh;
-    background-image: radial-gradient(hsl(220 13% 34%),hsl(239 58% 20%));
+    background-image: linear-gradient(hsl(239 58% 20%),hsl(220 13% 34%));
 }
 h1{
     font-size: 3rem;
@@ -14,6 +14,7 @@ h1{
     border: 1px solid hsl(180 100% 50%);
     width: 66vw;
     height: 66vh;
+    background-color: hsl(0 0% 0% / .5);
 }
 @media only screen and (max-width: 700px){
     #canvas{

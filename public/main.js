@@ -6,6 +6,7 @@ import { Pyramid } from "./js/shapes/pyramid.js";
 import { GameOfLife } from "./js/animations/gameoflife.js";
 import { PulsingParticles } from "./js/animations/pulsing-particles.js";
 import { Firework } from "./js/parts/firework.js";
+import { Fireworks } from "./js/animations/fireworks.js";
 
 const { 
         random, 
@@ -31,7 +32,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,firework,firework2)=>{
+const animateCanvas = (ctx,firework,FIREWORKS)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -40,8 +41,8 @@ const animateCanvas = (ctx,firework,firework2)=>{
 
             clearPolarCanvas(ctx);
 
-            firework.Start(ctx);
-            firework2.Start(ctx);
+            //firework.Start(ctx);
+            FIREWORKS.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -58,27 +59,10 @@ const animateCanvas = (ctx,firework,firework2)=>{
     const CANVAS_HEIGHT = canvas.height;
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
-    const firework = new Firework(
-
-        random(-CANVAS_WIDTH/2,CANVAS_WIDTH/2),
-        CANVAS_HEIGHT/2 + 10,
-        0,
-        10,
-        'hsl(180 100% 50%)'
-
-    );
-    const firework2 = new Firework(
-
-        random(-CANVAS_WIDTH/2,CANVAS_WIDTH/2),
-        CANVAS_HEIGHT/2 + 10,
-        0,
-        8,
-        'hsl(120 100% 50%)'
-        
-    );
-    //firework.render(ctx);
-	alert(firework.particles[0].velocity.y)
-    animateCanvas(ctx,firework,firework2);
+    const firework = new Firework(0,CANVAS_HEIGHT/2,0,10);
+    const FIREWORKS = new Fireworks(ctx,100);
+    console.log(FIREWORKS.collection)
+    animateCanvas(ctx,firework,FIREWORKS);
 
 })();
 
