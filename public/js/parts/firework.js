@@ -4,20 +4,23 @@ import { Tools } from "../tools.js";
 const { random } = Tools;
 
 export class Firework{
-    constructor(x,y,z,mass){
+    constructor(x,y,z,mass,color){
         this.body = new Particle(x,y,z,mass);
-        this.speed = 7 * window.devicePixelRatio;
-        this.body.color = 'white';
+        this.speed = 30 * window.devicePixelRatio;
+        this.body.color = color || 'white';
+        this.opacity = 1;
         this.body.velocity.y = -this.speed;
         this.body.hasBoundary = false;
         this.startArc = 0;
         this.endArc = Math.PI*2;
-        this.gravity = new Vector(0,1);
+        this.gravity = new Vector(0,.2);
         this.wind = new Vector(0.01,0);
         
         this.exploded = false;
         this.particles = [];
-        this.createParticles(30)
+        // if(Math.random() > 0.5) this.createRandomExplosion(30);
+        // else this.createCircleExplosion(30);
+        
     }
     drag(){
         // Direction of Drag
@@ -25,31 +28,47 @@ export class Firework{
         drag.normalize();
         drag.multiply(-1);
 
-        const Cd = 0.01;
+        const Cd = 0.03;
         const speed = this.body.velocity.getMagnitude();
         drag.setMagnitude( Cd * (speed * speed) );
         return drag;
     }
-    createParticles(num){
+    createRandomExplosion(num){
     	for(let i = 0; i < num; i++){
     		const x = 0;
     		const y = 0;
     		const z = 0;
     		const mass = 2;
-    		const color = `hsl(${random(0,360,true)} 100% 50%)`;
     		const particle = new Particle(x,y,z,mass);
             particle.randomVelocityInit();
             //particle.velocity.setMagnitude(2) // makes circle explosion
             particle.velocity.multiply(4); // random explosion
-    		particle.color = color;
+    		particle.setColor(random(0,360),100,50);
+            particle.hasBoundary = false;
+    		this.particles.push(particle)
+		}	
+    }
+    createCircleExplosion(num){
+    	for(let i = 0; i < num; i++){
+    		const x = 0;
+    		const y = 0;
+    		const z = 0;
+    		const mass = 2;
+    		const particle = new Particle(x,y,z,mass);
+            particle.randomVelocityInit();
+            particle.velocity.setMagnitude(2) // makes circle explosion
+            //particle.velocity.multiply(4); // random explosion
+    		particle.setColor(random(0,360),100,50);
             particle.hasBoundary = false;
     		this.particles.push(particle)
 		}	
     }
     explode(canvas){
     	for(let i = 0; i < this.particles.length; i++){
+            this.particles[i].setOpacity(this.opacity)
     		this.particles[i].move(canvas)
-		}	
+		}
+        this.opacity -= 0.01;	
     }
     renderParticles(ctx){
     	for(let i = 0; i < this.particles.length; i++){
@@ -79,12 +98,11 @@ export class Firework{
         else this.renderParticles(ctx);
     }
     removeParticles(){
-        for(let i = this.particles.length -1; i > 0; i--){
-
-        }
+        this.particles = this.particles.filter( particle => particle.collapsed === false);
     }
     Start(ctx){
         this.update(ctx.canvas);
         this.render(ctx);
+        this.removeParticles();
     }
 }

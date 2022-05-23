@@ -17,12 +17,26 @@ export class Particle{
         this.radius = Math.sqrt(this.mass);
         this.maxRadius = this.radius;
         this.area = Math.PI * Math.pow(this.radius, 2);
-        this.color = 'hsl(0 0% 0%)';
+        this.hue = undefined;
+        this.saturation = undefined;
+        this.lightness = undefined;
+        this.opacity = undefined;
         this.startArc = 0;
         this.endArc = Math.PI*2;
         this.angle = 0;
         this.theta = 0;
         this.hasBoundary = true;
+        this.collapsed = false;
+        this.setColor();
+    }
+    setOpacity(num){
+        this.opacity = num;
+    }
+    setColor(h,s,l,o){
+        this.hue = h || 0;
+        this.saturation = s || 100;
+        this.lightness = l || 100;
+        this.opacity = o || 1;
     }
     randomVelocityInit(){
         this.speed = random(0,1);
@@ -40,21 +54,25 @@ export class Particle{
         
     }
     move(canvas){
-        if(this.hasBoundary){
-            if(this.position.x - this.radius < -canvas.width/2 || this.position.x + this.radius > canvas.width/2){
-                this.velocity.x = this.velocity.x * -1;
+        if(!this.collapsed){
+            if(this.hasBoundary){
+                if(this.position.x - this.radius < -canvas.width/2 || this.position.x + this.radius > canvas.width/2){
+                    this.velocity.x = this.velocity.x * -1;
+                }
+                if(this.position.y - this.radius < -canvas.height/2 || this.position.y + this.radius > canvas.height/2){
+                    this.velocity.y = this.velocity.y * -1;
+                }
             }
-            if(this.position.y - this.radius < -canvas.height/2 || this.position.y + this.radius > canvas.height/2){
-                this.velocity.y = this.velocity.y * -1;
-            }
+            this.velocity.add(this.acceleration);
+            this.position.add(this.velocity);
+            this.acceleration.multiply(0)
+            if(this.opacity <= 0) this.collapsed = true;
         }
-        this.velocity.add(this.acceleration);
-        this.position.add(this.velocity);
-        this.acceleration.multiply(0)
     }
     render(ctx){
+        if(this.collapsed) return;
         ctx.beginPath();
-        ctx.fillStyle = this.color
+        ctx.fillStyle = `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.opacity})`;
         ctx.arc(this.position.x, this.position.y, this.radius, this.startArc, this.endArc);
         ctx.fill();
         //ctx.stroke();

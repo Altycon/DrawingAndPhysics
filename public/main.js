@@ -60,8 +60,8 @@ const animateCanvas = (ctx,firework,FIREWORKS)=>{
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
     const firework = new Firework(0,CANVAS_HEIGHT/2,0,10);
-    const FIREWORKS = new Fireworks(ctx,100);
-    console.log(FIREWORKS.collection)
+    const FIREWORKS = new Fireworks(ctx,200,5);
+    
     animateCanvas(ctx,firework,FIREWORKS);
 
 })();
