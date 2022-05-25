@@ -41,15 +41,24 @@ export class Graph{
         ctx.stroke();
     }
     renderIncrements(ctx){
-        const Xs = Math.floor((this.width)/10);
-        const Ys = Math.floor(this.height/10);
-        
-        for(let i = 1; i < Xs; i++){
+    	const Resolution = 10
+        const Xs = Math.floor((this.width)/Resolution);
+        const Ys = Math.floor(this.height/Resolution);
+        for(let i = 1; i < Ys; i++){
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             //ctx.arc(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys, 2, 0, Math.PI*2);
-            ctx.moveTo(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys);
-            ctx.lineTo(this.leftCenter.x + (Xs * i), this.leftCenter.y + Ys);
+            ctx.moveTo(this.topCenter.x - Resolution, this.topCenter.y + (Resolution * i));
+            ctx.lineTo(this.topCenter.x + Resolution, this.topCenter.y + (Resolution * i));
+            ctx.closePath();
+            ctx.stroke();
+        }
+        for(let j = 1; j < Xs; j++){
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            //ctx.arc(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys, 2, 0, Math.PI*2);
+            ctx.moveTo(this.leftCenter.x + (Resolution * j), this.leftCenter.y - Resolution);
+            ctx.lineTo(this.leftCenter.x + (Resolution * j), this.leftCenter.y + Resolution);
             ctx.closePath();
             ctx.stroke();
         }
