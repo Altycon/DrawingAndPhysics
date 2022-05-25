@@ -7,6 +7,7 @@ import { GameOfLife } from "./js/animations/gameoflife.js";
 import { PulsingParticles } from "./js/animations/pulsing-particles.js";
 import { Firework } from "./js/parts/firework.js";
 import { Fireworks } from "./js/animations/fireworks.js";
+import { Graph } from "./js/graphs/graph.js";
 
 const { 
         random, 
@@ -32,7 +33,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,firework,FIREWORKS)=>{
+const animateCanvas = (ctx,FIREWORKS)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -41,8 +42,7 @@ const animateCanvas = (ctx,firework,FIREWORKS)=>{
 
             clearPolarCanvas(ctx);
 
-            //firework.Start(ctx);
-            FIREWORKS.Start(ctx);
+            //FIREWORKS.Start(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -59,10 +59,10 @@ const animateCanvas = (ctx,firework,FIREWORKS)=>{
     const CANVAS_HEIGHT = canvas.height;
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
-    const firework = new Firework(0,CANVAS_HEIGHT/2,0,10);
-    const FIREWORKS = new Fireworks(ctx,200,5);
-    
-    animateCanvas(ctx,firework,FIREWORKS);
+    const FIREWORKS = new Fireworks(ctx,500,10);
+    const graph = new Graph(-CANVAS_WIDTH/2+10,-CANVAS_HEIGHT/2 + 10,200,200);
+    graph.render(ctx);
+    //animateCanvas(ctx,FIREWORKS);
 
 })();
 

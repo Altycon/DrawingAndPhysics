@@ -37,8 +37,8 @@ export class Firework{
     	for(let i = 0; i < num; i++){
     		const x = 0;
     		const y = 0;
-    		const z = 0;
-    		const mass = 2;
+    		const z = random(-100,100);
+    		const mass = 4;
     		const particle = new Particle(x,y,z,mass);
             particle.randomVelocityInit();
             //particle.velocity.setMagnitude(2) // makes circle explosion
@@ -52,8 +52,8 @@ export class Firework{
     	for(let i = 0; i < num; i++){
     		const x = 0;
     		const y = 0;
-    		const z = 0;
-    		const mass = 2;
+    		const z = random(-100,100);
+    		const mass = 4;
     		const particle = new Particle(x,y,z,mass);
             particle.randomVelocityInit();
             particle.velocity.setMagnitude(2) // makes circle explosion

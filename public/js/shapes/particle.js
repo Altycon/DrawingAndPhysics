@@ -12,8 +12,8 @@ export class Particle{
         this.position = new Vector(x,y,z);
         this.speed = 0;
         this.mass = mass;
-        this.velocity = new Vector(0,0);
-        this.acceleration = new Vector(0,0);
+        this.velocity = new Vector(0,0,0);
+        this.acceleration = new Vector(0,0,0);
         this.radius = Math.sqrt(this.mass);
         this.maxRadius = this.radius;
         this.area = Math.PI * Math.pow(this.radius, 2);
@@ -42,6 +42,7 @@ export class Particle{
         this.speed = random(0,1);
         this.velocity.x = random(-this.speed,this.speed);
         this.velocity.y = random(-this.speed,this.speed);
+        this.velocity.z = random(-this.speed,this.speed);
     }
     pulse(speed){
         if(speed) this.theta = speed;
@@ -71,6 +72,7 @@ export class Particle{
     }
     render(ctx){
         if(this.collapsed) return;
+        //this.radius = scale(this.position.z,-1000,1000,1,this.maxRadius);
         ctx.beginPath();
         ctx.fillStyle = `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.opacity})`;
         ctx.arc(this.position.x, this.position.y, this.radius, this.startArc, this.endArc);

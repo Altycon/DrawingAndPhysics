@@ -22,7 +22,7 @@ export class Fireworks{
     createFirework(){
         const x = random(-this.context.canvas.width/2, this.context.canvas.width/2);
         const y = this.context.canvas.height/2;
-        const z = 0;
+        const z = random(-100,100);
         const mass = random(2,6);
         const fw = new Firework(x,y,z,mass);
         fw.body.setColor(180);
