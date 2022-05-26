@@ -62,6 +62,7 @@ const animateCanvas = (ctx,FIREWORKS)=>{
     const FIREWORKS = new Fireworks(ctx,500,10);
     const graph = new Graph(-CANVAS_WIDTH/2+10,-CANVAS_HEIGHT/2 + 10,600);
     graph.render(ctx);
+    
     //animateCanvas(ctx,FIREWORKS);
 
 })();
