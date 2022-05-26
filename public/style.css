@@ -3,28 +3,86 @@ body{
     min-height: 100vh;
     background-image: linear-gradient(hsl(239 58% 20%),hsl(220 13% 34%));
 }
-h1{
+
+header h1{
     font-size: 3rem;
     padding: 2rem;
     text-align: center;
     color:hsl(180 100% 50%);
     text-shadow: 5px 5px hsl(0 0% 0% / 0.5);
 }
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.canvas-container{
+    padding: 1rem;
+}
 #canvas{
     display: block;
     margin: 0 auto;
     border: 1px solid hsl(180 100% 50%);
-    width: 66vw;
-    height: 66vh;
+    width: 33vw;
+    /* height: 25vw; */
+    aspect-ratio: 16/9;
     background-color: hsl(0 0% 0% / 1);
 }
-@media only screen and (max-width: 700px){
-    #canvas{
-        width: 90vw;
-        height: 30vh;
-    }
+
+.controls-container{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.control-container{
+    padding: .5rem;
+    position: relative;
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+}
+.control-container .value-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.value-display{
+    color: #fff;
+    font-size: .8rem;
+}
+.control-container label{
+    color: yellow;
+    text-align: center;
+}
+input[name=slider]{
+    position: relative;
+    padding: .5rem;
+}
+[data-output]{
+    color: #fff;
 }
 footer{
     padding: 1rem;
     text-align: center;
+}
+
+
+
+
+/*  Responsive Media Queries*/
+
+@media only screen and (max-width: 700px){
+    main{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    #canvas{
+        width: 90vw;
+        /* height: 30vh; */
+    }
+    .control-container{
+        width: max-content;
+    }
 }

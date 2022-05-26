@@ -1,5 +1,6 @@
 "use strict";
 
+import { Line } from "../components/line.js";
 import { Vector } from "../components/vector.js";
 
 export class Graph{
@@ -9,12 +10,14 @@ export class Graph{
         this.width = width;
         this.height = height ? height: this.width/this.apectRatio;
         this.background = `hsl(0 100% 100% / .4)`;
-        this.border = `hsl(0 0% 0% / 1)`;
+        this.border = `hsl(120 100% 50% / 1)`;
         this.center = new Vector(this.position.x + this.width/2, this.position.y + this.height/2);
         this.topCenter = new Vector(this.position.x + (this.width/2), this.position.y);
         this.bottomCenter = new Vector(this.position.x + (this.width/2), this.position.y + this.height);
         this.leftCenter = new Vector(this.position.x, this.position.y + (this.height/2));
         this.rightCenter = new Vector(this.position.x + this.width, this.position.y + (this.height/2));
+        this.Increments = this.createIncrements();
+        this.line_width = 1 * window.devicePixelRatio;
     }
     renderDisplay(ctx){
         ctx.beginPath();
@@ -26,51 +29,63 @@ export class Graph{
     }
     renderGraphLines(ctx){
         ctx.beginPath();
-        ctx.lineWidth = 1;
+        ctx.lineWidth = this.line_width;
 
         ctx.strokeStyle = this.border;
         ctx.moveTo(this.topCenter.x, this.topCenter.y);
         ctx.lineTo(this.bottomCenter.x, this.bottomCenter.y);
-        ctx.closePath();
+        // ctx.closePath();
         ctx.stroke();
 
-        ctx.beginPath();
+        // ctx.beginPath();
         ctx.moveTo(this.leftCenter.x, this.leftCenter.y);
         ctx.lineTo(this.rightCenter.x, this.rightCenter.y);
-        ctx.closePath();
+        // ctx.closePath();
         ctx.stroke();
     }
-    renderIncrements(ctx){
+    createIncrements(){
     	const Resolution = 20;
-    	const NegYs = Math.floor(this.topCenter.y/Resolution) * -1;
-        const Xs = Math.floor((this.width)/Resolution);
-        const PosYs = Math.floor(this.bottomCenter.y/Resolution);
-        for(let i = 1; i < NegYs; i++){
-            ctx.beginPath();
-            ctx.strokeStyle = this.border;
-            //ctx.arc(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys, 2, 0, Math.PI*2);
-            ctx.moveTo(this.center.x - Resolution, this.center.y - (Resolution * i));
-            ctx.lineTo(this.center.x + Resolution, this.center.y - (Resolution * i));
-            ctx.closePath();
-            ctx.stroke();
+        const Line_Length = Resolution/2;
+    	const Ys = Math.floor(this.topCenter.y/Resolution)*-1; // I don't know why 
+        const Xs = Math.floor(this.rightCenter.x/Resolution);
+
+        const Increment_Array = [];
+        
+        for(let i = 1; i < Ys*2; i++){
+            
+            const Pos_Y_Line = new Line(
+                this.center.x - Line_Length, this.center.y + (Resolution * i),
+                this.center.x + Line_Length, this.center.y + (Resolution * i),
+                this.border
+            );
+            const Neg_Y_Line = new Line(
+                this.center.x - Line_Length, this.center.y - (Resolution * i),
+                this.center.x + Line_Length, this.center.y - (Resolution * i),
+                this.border
+            );
+            Increment_Array.push(Pos_Y_Line);
+            Increment_Array.push(Neg_Y_Line);
         }
-        for(let k = 1; k < PosYs; k++){
-            ctx.beginPath();
-            ctx.strokeStyle = this.border;
-            //ctx.arc(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys, 2, 0, Math.PI*2);
-            ctx.moveTo(this.center.x - Resolution, this.center.y + (Resolution * k));
-            ctx.lineTo(this.center.x + Resolution, this.center.y + (Resolution * k));
-            ctx.closePath();
-            ctx.stroke();
+        for(let j = 1; j < Xs*2; j++){
+           
+            const Pos_X_Line = new Line(
+                this.center.x + (Resolution * j), this.center.y - Line_Length,
+                this.center.x + (Resolution * j), this.center.y + Line_Length,
+                this.border
+            );
+            const Neg_X_Line = new Line(
+                this.center.x - (Resolution * j), this.center.y - Line_Length,
+                this.center.x - (Resolution * j), this.center.y + Line_Length,
+                this.border
+            );
+            Increment_Array.push(Pos_X_Line);
+            Increment_Array.push(Neg_X_Line);
         }
-        for(let j = 1; j < Xs; j++){
-            ctx.beginPath();
-            ctx.strokeStyle = this.border;
-            //ctx.arc(this.leftCenter.x + (Xs * i), this.leftCenter.y - Ys, 2, 0, Math.PI*2);
-            ctx.moveTo(this.leftCenter.x + (Resolution * j), this.leftCenter.y - Resolution);
-            ctx.lineTo(this.leftCenter.x + (Resolution * j), this.leftCenter.y + Resolution);
-            ctx.closePath();
-            ctx.stroke();
+        return Increment_Array;
+    }
+    renderIncrements(ctx){
+        for(let i = 0; i < this.Increments.length; i++){
+            this.Increments[i].render(ctx);
         }
     }
     render(ctx){

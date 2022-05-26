@@ -33,7 +33,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,FIREWORKS)=>{
+const animateCanvas = (ctx,FIREWORKS,graph)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -43,6 +43,7 @@ const animateCanvas = (ctx,FIREWORKS)=>{
             clearPolarCanvas(ctx);
 
             //FIREWORKS.Start(ctx);
+            graph.render(ctx);
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -60,10 +61,10 @@ const animateCanvas = (ctx,FIREWORKS)=>{
     ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
     const FIREWORKS = new Fireworks(ctx,500,10);
-    const graph = new Graph(-CANVAS_WIDTH/2+10,-CANVAS_HEIGHT/2 + 10,600);
+    const graph = new Graph(-CANVAS_WIDTH/2,-CANVAS_HEIGHT/2, CANVAS_WIDTH);
     graph.render(ctx);
     
-    //animateCanvas(ctx,FIREWORKS);
+    animateCanvas(ctx,FIREWORKS,graph);
 
 })();
 
