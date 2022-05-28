@@ -3,7 +3,7 @@
 export const Tools = {
     random: (min,max,bool)=> bool? Math.floor(Math.random()*(max-min)+min):Math.random()*(max-min)+min,
     scale: (number,inMin,inMax,outMin,outMax)=>{
-        return (number - inMin)*(outMax-outMin)/(inMax-inMin)+outMax;
+        return (number - inMin)*(outMax-outMin)/(inMax-inMin)+outMin;
     },
     getDPI: ()=> window.devicePixelRatio,
     fixCanvasForMobile: (canvas)=>{

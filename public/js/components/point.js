@@ -11,6 +11,23 @@ export class Point{
         this.fillColor = 'hsl(0 0% 0%)';
         this.startAngle = 0;
         this.endAngle = Math.PI*2;
+
+        //change the color to this
+        this.hue = undefined;
+        this.saturation = undefined;
+        this.lightness = undefined;
+        this.opacity = undefined;
+        // Add this to fillstyle in render
+        // `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.opacity})`;
+    }
+    setOpacity(num){
+        this.opacity = num;
+    }
+    setColor(h,s,l,o){
+        this.hue = h || 0;
+        this.saturation = s || 100;
+        this.lightness = l || 100;
+        this.opacity = o || 1;
     }
     render(ctx){
         ctx.beginPath();

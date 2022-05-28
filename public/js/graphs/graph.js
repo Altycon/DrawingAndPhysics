@@ -1,7 +1,9 @@
 "use strict";
 
 import { Line } from "../components/line.js";
+import { Point } from "../components/point.js";
 import { Vector } from "../components/vector.js";
+import { GraphController } from "./graph-controller.js";
 
 export class Graph{
     constructor(x,y,width,height){
@@ -18,6 +20,18 @@ export class Graph{
         this.rightCenter = new Vector(this.position.x + this.width, this.position.y + (this.height/2));
         this.Increments = this.createIncrements();
         this.line_width = 1 * window.devicePixelRatio;
+        
+        this.points = [];
+        this.createPoint(0,0,0,5,'hsl(300 100% 50%)');
+        this.controller = new GraphController(this.points[0]);
+        this.controller.setXRange(this.leftCenter.x, this.rightCenter.x,0);
+        this.controller.setYRange(this.topCenter.y, this.bottomCenter.y,0);
+        this.controller.setZRange(-1,1,0)
+    }
+    createPoint(x,y,z,radius,color){
+        const point = new Point(x,y,z,radius);
+        point.fillColor = color;
+        this.points.push(point);
     }
     renderDisplay(ctx){
         ctx.beginPath();
@@ -88,9 +102,18 @@ export class Graph{
             this.Increments[i].render(ctx);
         }
     }
+    renderPoints(ctx){
+        if(this.points.length){
+            for(let i = 0; i < this.points.length; i++){
+                this.points[i].render(ctx);
+            }
+        }
+        
+    }
     render(ctx){
         this.renderDisplay(ctx);
         this.renderGraphLines(ctx);
         this.renderIncrements(ctx);
+        this.renderPoints(ctx);
     }
 }
