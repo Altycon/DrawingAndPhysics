@@ -10,6 +10,17 @@ export class GraphController{
         this.connectSliderX();
         this.connectSliderY();
         this.connectSliderZ();
+        this.P1X = document.getElementById('p1x');
+        this.P1Y = document.getElementById('p1y');
+        this.P1Z = document.getElementById('p1z');
+        this.P1RADIUS = document.getElementById('p1radius');
+        this.P1COLOR = document.getElementById('p1color');
+
+        this.P2X = document.getElementById('p1x');
+        this.P2Y = document.getElementById('p1y');
+        this.P2Z = document.getElementById('p1z');
+        this.P2RADIUS = document.getElementById('p1radius');
+        this.P2COLOR = document.getElementById('p1color');
     }
     connectSliderX(){
         this.X_SLIDER.addEventListener('input', (ev)=>{
@@ -59,5 +70,10 @@ export class GraphController{
         DisplayRanges[0].innerText = min.toString();
         DisplayRanges[1].innerText = value.toString();
         DisplayRanges[2].innerText = max.toString();
+    }
+    connectPointInputs(){
+        this.P1X.addEventListener('input',(ev)=>{
+            
+        })
     }
 }
