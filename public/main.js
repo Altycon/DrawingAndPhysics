@@ -8,6 +8,7 @@ import { PulsingParticles } from "./js/animations/pulsing-particles.js";
 import { Firework } from "./js/parts/firework.js";
 import { Fireworks } from "./js/animations/fireworks.js";
 import { Graph } from "./js/graphs/graph.js";
+import { MandelbrotFractal } from "./js/math/mandelbrot.js";
 
 const { 
         random, 
@@ -33,7 +34,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,FIREWORKS,graph)=>{
+const animateCanvas = (ctx,MANDELBROT_FRACTAL)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -43,7 +44,8 @@ const animateCanvas = (ctx,FIREWORKS,graph)=>{
             clearPolarCanvas(ctx);
 
             //FIREWORKS.Start(ctx);
-            graph.render(ctx);
+            //graph.render(ctx);
+            MANDELBROT_FRACTAL.render();
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -58,13 +60,17 @@ const animateCanvas = (ctx,FIREWORKS,graph)=>{
     const ctx = canvas.getContext('2d');
     const CANVAS_WIDTH = canvas.width;
     const CANVAS_HEIGHT = canvas.height;
-    ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
+    //ctx.translate(CANVAS_WIDTH*0.5,CANVAS_HEIGHT*0.5);
     
-    const FIREWORKS = new Fireworks(ctx,500,10);
-    const graph = new Graph(-CANVAS_WIDTH/2,-CANVAS_HEIGHT/2, CANVAS_WIDTH);
-    graph.render(ctx);
+    // const FIREWORKS = new Fireworks(ctx,500,10);
+
+    // CLAY!! Remember to un-comment out the html input sections if you decided to work on the graph
+    // const graph = new Graph(-CANVAS_WIDTH/2,-CANVAS_HEIGHT/2, CANVAS_WIDTH);
+    // graph.render(ctx);
+
+    const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
     
-    animateCanvas(ctx,FIREWORKS,graph);
+    animateCanvas(ctx,MANDELBROT_FRACTAL);
 
 })();
 
