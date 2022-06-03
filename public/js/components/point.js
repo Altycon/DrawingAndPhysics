@@ -26,14 +26,14 @@ export class Point{
     setColor(h,s,l,o){
         this.hue = h || 0;
         this.saturation = s || 100;
-        this.lightness = l || 100;
+        this.lightness = l || 50;
         this.opacity = o || 1;
     }
     render(ctx){
         ctx.beginPath();
         //ctx.lineWidth = this.strokeWidth;
         ctx.strokeStyle = this.strokeColor;
-        ctx.fillStyle = this.fillColor;
+        ctx.fillStyle = `hsl(${this.hue} ${this.saturation}% ${this.lightness}% / ${this.opacity})`;
         ctx.arc(this.position.x,this.position.y,this.radius, this.startAngle, this.endAngle);
         ctx.closePath();
         ctx.fill();

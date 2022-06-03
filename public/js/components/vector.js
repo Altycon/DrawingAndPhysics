@@ -105,6 +105,9 @@ const CVectors = {
     },
     ToDegrees: (radian)=>{
         return radian * 180/Math.PI;
+    },
+    MidPoint(vector1,vector2){
+        return new Vector((vector1.x + vector2.x)/2, (vector1.y + vector2.y)/2);
     }
 }
 export { Vector, UnitVector, CVectors };

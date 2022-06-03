@@ -13,7 +13,9 @@
         <h1>东西</h1>
     </header>
     <main>
-        
+        <section class="animation-canvas-container">
+            <canvas id="AnimationCanvas"></canvas>
+        </section>
         <section class="canvas-container">
             <canvas id="canvas"></canvas>
         </section>
@@ -22,7 +24,7 @@
             <div class="controls-wrapper">
                 <div class="control-container">
                     <label for="X-Slider">X's - <span data-output="x">0</span></label>
-                    <input type="range" name="slider" id="X-Slider" min="-1" max="1" value="0" step="0.01">
+                    <input type="range" name="slider" id="X-Slider">
                     <div class="value-container">
                         <div class="X-range-display value-display">-1</div>
                         <div class="X-range-display value-display">0</div>
@@ -32,7 +34,7 @@
 
                 <div class="control-container">
                     <label for="Y-Slider">Y's - <span data-output="y">0</span></label>
-                    <input type="range" name="slider" id="Y-Slider" min="-1" max="1" value="0" step="0.01">
+                    <input type="range" name="slider" id="Y-Slider">
                     <div class="value-container">
                         <div class="Y-range-display value-display">-1</div>
                         <div class="Y-range-display value-display">0</div>
@@ -42,7 +44,7 @@
 
                 <div class="control-container">
                     <label for="Z-Slider">Z's - <span data-output="z">0</span></label>
-                    <input type="range" name="slider" id="Z-Slider" min="-1" max="1" value="0" step="0.01">
+                    <input type="range" name="slider" id="Z-Slider">
                     <div class="value-container">
                         <div class="Z-range-display value-display">-1</div>
                         <div class="Z-range-display value-display">0</div>

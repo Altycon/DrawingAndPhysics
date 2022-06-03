@@ -13,8 +13,16 @@ header h1{
 }
 main{
     display: grid;
-    grid-template-columns: auto 1fr;
-    padding: 1rem;
+    grid-template-columns:1fr;
+}
+.animation-canvas-container{
+    border: 1px solid purple;
+}
+#AnimationCanvas{
+    border: 1px solid yellow;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsl(0 100% 100% / 0.5);
 }
 .canvas-container{
     padding: 1rem;

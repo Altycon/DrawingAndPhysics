@@ -11,15 +11,15 @@ export class MandelbrotFractal{
         this.Iterations = 0;
         this.Max_Interations = 100;
         this.pixels = this.context.getImageData(0,0, this.display.width,this.display.height);
-        this.zoomX = 0;
-        this.zoomY = 0;
+        this.zoomX = 2;
+        this.zoomY = 2;
         this.X_SLIDER = document.getElementById('X-Slider');
         this.Y_SLIDER = document.getElementById('Y-Slider');
         this.setXRange(0, 4, 2, 0.001);
         this.setYRange(0, 4, 2, 0.001);
         this.connectSliderX();
         this.connectSliderY();
-        console.log(this.zoomX, this.zoomY)
+        console.log(this.X_SLIDER)
     }
     connectSliderX(){
         this.X_SLIDER.addEventListener('input', (ev)=>{

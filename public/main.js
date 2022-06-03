@@ -9,6 +9,7 @@ import { Firework } from "./js/parts/firework.js";
 import { Fireworks } from "./js/animations/fireworks.js";
 import { Graph } from "./js/graphs/graph.js";
 import { MandelbrotFractal } from "./js/math/mandelbrot.js";
+import { ChaosShape } from "./js/math/chaos-shape.js";
 
 const { 
         random, 
@@ -34,7 +35,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,MANDELBROT_FRACTAL)=>{
+const animateCanvas = (ctx,ChaosTriangle)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -45,7 +46,8 @@ const animateCanvas = (ctx,MANDELBROT_FRACTAL)=>{
 
             //FIREWORKS.Start(ctx);
             //graph.render(ctx);
-            MANDELBROT_FRACTAL.render();
+            //MANDELBROT_FRACTAL.render();
+            ChaosTriangle.Start();
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -55,6 +57,9 @@ const animateCanvas = (ctx,MANDELBROT_FRACTAL)=>{
 (function init(){
 
     const dpi = getDPI();
+    const AnimationCanvas = document.getElementById('AnimationCanvas');
+    fixCanvasForMobile(AnimationCanvas)
+    const actx = AnimationCanvas.getContext('2d');
     const canvas = document.getElementById('canvas');
     fixCanvasForMobile(canvas)
     const ctx = canvas.getContext('2d');
@@ -68,9 +73,12 @@ const animateCanvas = (ctx,MANDELBROT_FRACTAL)=>{
     // const graph = new Graph(-CANVAS_WIDTH/2,-CANVAS_HEIGHT/2, CANVAS_WIDTH);
     // graph.render(ctx);
 
-    const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
+    //const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
+
+    const ChaosTriangle = new ChaosShape(3,AnimationCanvas);
+    // ChaosTriangle.Start();
     
-    animateCanvas(ctx,MANDELBROT_FRACTAL);
+    animateCanvas(ctx, ChaosTriangle);
 
 })();
 
