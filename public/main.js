@@ -48,6 +48,7 @@ const animateCanvas = (ctx,ChaosTriangle)=>{
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
             ChaosTriangle.Start();
+            //console.log(ChaosTriangle.points[0])
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
