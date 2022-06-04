@@ -35,7 +35,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,actx,ChaosShapes)=>{
+const animateCanvas = (ctx,actx,CHAOS_SHAPE)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -47,10 +47,8 @@ const animateCanvas = (ctx,actx,ChaosShapes)=>{
             //FIREWORKS.Start(ctx);
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
-            //ChaosTriangle.Start(actx);
-            for(let i = 0; i < ChaosShapes.length; i++){
-                ChaosShapes[i].Start(actx);
-            }
+            CHAOS_SHAPE.Start(actx);
+            
           
             //console.log(ChaosTriangle.points[0])
         }
@@ -65,6 +63,9 @@ const animateCanvas = (ctx,actx,ChaosShapes)=>{
     const AnimationCanvas = document.getElementById('AnimationCanvas');
     fixCanvasForMobile(AnimationCanvas)
     const actx = AnimationCanvas.getContext('2d');
+    const ANIMATION_CANVAS_WIDTH = AnimationCanvas.width;
+    const ANIMATION_CANVAS_HIEGHT = AnimationCanvas.height;
+
     const canvas = document.getElementById('canvas');
     fixCanvasForMobile(canvas)
     const ctx = canvas.getContext('2d');
@@ -79,23 +80,10 @@ const animateCanvas = (ctx,actx,ChaosShapes)=>{
     // graph.render(ctx);
 
     //const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
-    const ChaosShapes = [];
-    const res = 200;
-    const COLUMNS = Math.floor(AnimationCanvas.width/res);
-    const ROWS = Math.floor(AnimationCanvas.height/res);
-    let num = 3;
-    for(let i = 1; i < COLUMNS; i++){
-        for(let j = 1; j < ROWS; j++){
-            const shape = new ChaosShape(i * res, j * res, num, res/2);
-            ChaosShapes.push(shape);
-            num++;
-        }
-        
-    }
-    //const ChaosTriangle = new ChaosShape(200,200, 4, 100);
-    //ChaosTriangle.Start();
+    const SIZE = ANIMATION_CANVAS_WIDTH/2 > ANIMATION_CANVAS_HIEGHT/2 ? ANIMATION_CANVAS_HIEGHT/2:ANIMATION_CANVAS_WIDTH/2;
+    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE, 0);
     
-    animateCanvas(ctx, actx, ChaosShapes);
+    animateCanvas(ctx, actx, CHAOS_SHAPE);
 
 })();
 

@@ -13,18 +13,22 @@ import { Line } from "../components/line.js";
 // ....I should be able to animate each calculation this way...
 
 export class ChaosShape{
-    constructor(x,y,numberOfPoints,size){
+    constructor(x,y,numberOfPoints,size,color){
         this.position = new Vector(x,y);
         this.numberOfPoints = numberOfPoints;
         this.vertices = [];
-        this.size = size
+        this.size = size;
+        this.solidColor = color;
      
         for(let i = 0; i < this.numberOfPoints; i++){
         	const angle = i * (Math.PI*2)/this.numberOfPoints;
         	const x = this.position.x + this.size * Math.sin(angle);
         	const y = this.position.y + this.size * Math.cos(angle);
-            const vertex = new Point(x,y,0,1);
-            vertex.setColor(320,100,100,0.5);
+            const vertex = new Point(x,y,0,5);
+            if(this.solidColor === true) vertex.setColor(0,100,100,0.1);
+            else if(this.solidColor === 0) vertex.setColor(this.solidColor,0,0,0.1);
+            else if(this.solidColor >= 0) vertex.setColor(this.solidColor,100,50,0.1);
+            else vertex.setColor(random(0,360),100,50,0.1);
             this.vertices.push(vertex)
         }
         this.points = []
@@ -35,22 +39,31 @@ export class ChaosShape{
         this.previousPick = null;
     }
     getVertex(){
-        const len = this.numberOfPoints > 10 ? this.numberOfPoints*2:10;
-        for(let i = 0; i < len; i++){
+        const attemps = this.numberOfPoints > 10 ? this.numberOfPoints*2:10;
+        for(let i = 0; i < attemps; i++){
             const pick = random(0,this.vertices.length,true);
             if(this.previousPick != pick){
                 this.previousPick = pick;
-                return this.vertices[pick];
+                const color = [
+                    this.vertices[pick].hue,
+                    this.vertices[pick].saturation,
+                    this.vertices[pick].lightness,
+                    this.vertices[pick].opacity,
+                ];
+                
+                const vertex = this.vertices[pick]
+                return [vertex,color]
             }
         }
         
     }
     update(){
         
-        const vertex = this.getVertex();
+        const [vertex,color] = this.getVertex();
         const v = CVectors.MidPoint(this.points[0].position, vertex.position);
-        const point = new Point(v.x, v.y, 0, 0.5);
-        point.setColor(180,100,50,.1);
+        const point = new Point(v.x, v.y, 0, 1);
+        point.setColor(color[0],color[1],color[2],color[3]);
+        // point.setColor(180,100,50,.1);
         this.points.unshift(point)
         
     }
@@ -63,7 +76,7 @@ export class ChaosShape{
         for(let i = 0; i < len; i++){
             this.vertices[i].render(ctx);
         }
-        let start = 0, end = 10;
+        let start = 0, end = 500;
         while(start < end){
             
             this.update();
