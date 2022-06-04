@@ -35,19 +35,22 @@ const {
  */
 
 
-const animateCanvas = (ctx,ChaosTriangle)=>{
+const animateCanvas = (ctx,actx,ChaosShapes)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
         if(lastTime != null){
             //code here
 
-            clearPolarCanvas(ctx);
-
+            //clearPolarCanvas(ctx);
+            //clearCanvas(actx)
             //FIREWORKS.Start(ctx);
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
-            ChaosTriangle.Start();
+            //ChaosTriangle.Start(actx);
+            for(let i = 0; i < ChaosShapes.length; i++){
+                ChaosShapes[i].Start(actx);
+            }
           
             //console.log(ChaosTriangle.points[0])
         }
@@ -76,11 +79,23 @@ const animateCanvas = (ctx,ChaosTriangle)=>{
     // graph.render(ctx);
 
     //const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
-
-    const ChaosTriangle = new ChaosShape(3, AnimationCanvas);
+    const ChaosShapes = [];
+    const res = 200;
+    const COLUMNS = Math.floor(AnimationCanvas.width/res);
+    const ROWS = Math.floor(AnimationCanvas.height/res);
+    let num = 3;
+    for(let i = 1; i < COLUMNS; i++){
+        for(let j = 1; j < ROWS; j++){
+            const shape = new ChaosShape(i * res, j * res, num, res/2);
+            ChaosShapes.push(shape);
+            num++;
+        }
+        
+    }
+    //const ChaosTriangle = new ChaosShape(200,200, 4, 100);
     //ChaosTriangle.Start();
     
-    animateCanvas(ctx, ChaosTriangle);
+    animateCanvas(ctx, actx, ChaosShapes);
 
 })();
 

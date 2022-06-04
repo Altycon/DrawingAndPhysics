@@ -25,8 +25,8 @@ export class Point{
     }
     setColor(h,s,l,o){
         this.hue = h || 0;
-        this.saturation = s || 100;
-        this.lightness = l || 50;
+        this.saturation = s || 0;
+        this.lightness = l || 0;
         this.opacity = o || 1;
     }
     render(ctx){

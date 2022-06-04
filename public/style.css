@@ -2,6 +2,7 @@
 body{
     min-height: 100vh;
     background-image: linear-gradient(hsl(239 58% 20%),hsl(220 13% 34%));
+    scroll-behavior: smooth;
 }
 
 header h1{
@@ -22,7 +23,7 @@ main{
     border: 1px solid yellow;
     width: 100vw;
     height: 100vh;
-    background-color: hsl(0 100% 100%);
+    background-color: hsl(0 0% 0%);
 }
 .canvas-container{
     padding: 1rem;
