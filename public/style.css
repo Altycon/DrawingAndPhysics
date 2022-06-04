@@ -22,7 +22,7 @@ main{
     border: 1px solid yellow;
     width: 100vw;
     height: 100vh;
-    background-color: hsl(0 100% 100% / 0.5);
+    background-color: hsl(0 100% 100%);
 }
 .canvas-container{
     padding: 1rem;

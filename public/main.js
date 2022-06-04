@@ -48,6 +48,7 @@ const animateCanvas = (ctx,ChaosTriangle)=>{
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
             ChaosTriangle.Start();
+          
             //console.log(ChaosTriangle.points[0])
         }
         lastTime = timestamp;
@@ -76,8 +77,8 @@ const animateCanvas = (ctx,ChaosTriangle)=>{
 
     //const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
 
-    const ChaosTriangle = new ChaosShape(3,AnimationCanvas);
-    // ChaosTriangle.Start();
+    const ChaosTriangle = new ChaosShape(3, AnimationCanvas);
+    //ChaosTriangle.Start();
     
     animateCanvas(ctx, ChaosTriangle);
 
