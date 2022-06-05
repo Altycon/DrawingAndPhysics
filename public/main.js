@@ -10,6 +10,7 @@ import { Fireworks } from "./js/animations/fireworks.js";
 import { Graph } from "./js/graphs/graph.js";
 import { MandelbrotFractal } from "./js/math/mandelbrot.js";
 import { ChaosShape } from "./js/math/chaos-shape.js";
+import { CanvasButton } from "./js/components/canvas-button.js";
 
 const { 
         random, 
@@ -35,7 +36,7 @@ const {
  */
 
 
-const animateCanvas = (ctx,actx,CHAOS_SHAPE)=>{
+const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
 
     let lastTime;
     const animate = (timestamp)=>{
@@ -43,14 +44,16 @@ const animateCanvas = (ctx,actx,CHAOS_SHAPE)=>{
             //code here
 
             //clearPolarCanvas(ctx);
-            //clearCanvas(actx)
+            clearCanvas(actx)
             //FIREWORKS.Start(ctx);
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
+            CANVAS_BUTTON.render();
+            // if(CANVAS_BUTTON.pressed){
+            //     CHAOS_SHAPE.numberOfPoints++;
+            // }
             CHAOS_SHAPE.Start(actx);
             
-          
-            //console.log(ChaosTriangle.points[0])
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -75,15 +78,15 @@ const animateCanvas = (ctx,actx,CHAOS_SHAPE)=>{
     
     // const FIREWORKS = new Fireworks(ctx,500,10);
 
-    // CLAY!! Remember to un-comment out the html input sections if you decided to work on the graph
-    // const graph = new Graph(-CANVAS_WIDTH/2,-CANVAS_HEIGHT/2, CANVAS_WIDTH);
-    // graph.render(ctx);
-
     //const MANDELBROT_FRACTAL = new MandelbrotFractal(canvas);
+
+   
+    const CANVAS_BUTTON = new CanvasButton(AnimationCanvas, 300, 100);
+    CANVAS_BUTTON.text = 'Touch'
     const SIZE = ANIMATION_CANVAS_WIDTH/2 > ANIMATION_CANVAS_HIEGHT/2 ? ANIMATION_CANVAS_HIEGHT/2:ANIMATION_CANVAS_WIDTH/2;
-    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE, 0);
+    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE);
     
-    animateCanvas(ctx, actx, CHAOS_SHAPE);
+    animateCanvas(ctx, actx, CANVAS_BUTTON,CHAOS_SHAPE);
 
 })();
 
