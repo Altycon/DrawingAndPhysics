@@ -48,7 +48,8 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
             //FIREWORKS.Start(ctx);
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
-            CANVAS_BUTTON.render();
+
+            //CANVAS_BUTTON.render();
             // if(CANVAS_BUTTON.pressed){
             //     CHAOS_SHAPE.numberOfPoints++;
             // }
@@ -84,7 +85,8 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
     const CANVAS_BUTTON = new CanvasButton(AnimationCanvas, 300, 100);
     CANVAS_BUTTON.text = 'Touch'
     const SIZE = ANIMATION_CANVAS_WIDTH/2 > ANIMATION_CANVAS_HIEGHT/2 ? ANIMATION_CANVAS_HIEGHT/2:ANIMATION_CANVAS_WIDTH/2;
-    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE);
+    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE,true);
+    CHAOS_SHAPE.setTriangleVertices(ANIMATION_CANVAS_WIDTH,ANIMATION_CANVAS_HIEGHT);
     
     animateCanvas(ctx, actx, CANVAS_BUTTON,CHAOS_SHAPE);
 

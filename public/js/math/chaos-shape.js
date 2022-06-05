@@ -25,10 +25,10 @@ export class ChaosShape{
         	const x = this.position.x + this.size * Math.sin(angle);
         	const y = this.position.y + this.size * Math.cos(angle);
             const vertex = new Point(x,y,0,5);
-            if(this.solidColor === true) vertex.setColor(0,100,100,0.5);
-            else if(this.solidColor === 0) vertex.setColor(this.solidColor,0,0,0.5);
-            else if(this.solidColor >= 0) vertex.setColor(this.solidColor,100,50,0.5);
-            else vertex.setColor(random(0,360),100,50,0.5);
+            if(this.solidColor === true) vertex.setColor(0,100,100,0.8);
+            else if(this.solidColor === 0) vertex.setColor(this.solidColor,0,0,0.8);
+            else if(this.solidColor >= 0) vertex.setColor(this.solidColor,100,50,0.8);
+            else vertex.setColor(random(0,360),100,50,0.8);
             this.vertices.push(vertex)
         }
         this.points = []
@@ -37,6 +37,7 @@ export class ChaosShape{
         this.points.push(this.StartingPoint);
         this.interations = 0;
         this.previousPick = null;
+        this.displayTriangle = false;
     }
     getVertex(){
         const attemps = 100;
@@ -91,35 +92,75 @@ export class ChaosShape{
         ctx.fillStyle = 'black';
         ctx.fillText(this.interations, ctx.canvas.width/2, ctx.canvas.height-100);
     }
-    setTriangleVertices(){
+    setTriangleVertices(width,height){
+        this.numberOfPoints = 3;
         this.vertices = [];
         for(let i = 0; i < this.numberOfPoints; i++){
         	const angle = i * (Math.PI*2)/this.numberOfPoints;
-        	const x = this.position.x + random(0,300,true) * Math.sin(angle);
-        	const y = this.position.y + random(0,300,true) * Math.cos(angle);
+        	const x = this.position.x + random(0,width/2,true) * Math.sin(angle);
+        	const y = this.position.y + random(0,height/2,true) * Math.cos(angle);
             const vertex = new Point(x,y,0,5);
             if(this.solidColor === true) vertex.setColor(0,100,100,0.5);
             else if(this.solidColor === 0) vertex.setColor(this.solidColor,0,0,0.5);
             else if(this.solidColor >= 0) vertex.setColor(this.solidColor,100,50,0.5);
             else vertex.setColor(random(0,360),100,50,0.5);
             this.vertices.push(vertex)
+            this.displayTriangle = true;
         }
     }
+    getTriangleVertex(){
+        
+        const pick = random(0,this.vertices.length,true);
+        const color = [
+            this.vertices[pick].hue,
+            this.vertices[pick].saturation,
+            this.vertices[pick].lightness,
+            this.vertices[pick].opacity,
+        ];
+        const vertex = this.vertices[pick]
+        return [vertex,color]
+        
+    }
     updateTriangle(){
-        //const [vertex,color] = this.getVertex();
+        const [vertex,color] = this.getTriangleVertex();
         const v = CVectors.MidPoint(this.points[0].position, vertex.position);
         const point = new Point(v.x, v.y, 0, 1);
         point.setColor(color[0],color[1],color[2],color[3]);
         // point.setColor(180,100,50,.1);
         this.points.unshift(point)
     }
-    startTriangle(){
-        this.setTriangleVertices();
+    startTriangle(ctx){
+        if(this.interations < 400){
+
+            const len = this.vertices.length;
+            for(let i = 0; i < len; i++){
+                this.vertices[i].render(ctx);
+            }
+            let start = 0, end = 100;
+            while(start < end){
+                
+                this.updateTriangle();
+
+                start++;
+            }
+            this.interations++;
+        }
+        for(let j = 0; j < this.points.length; j++){
+            this.points[j].render(ctx);
+        }
+        ctx.beginPath();
+        ctx.font = '64px serif';
+        ctx.fillStyle = 'white';
+        ctx.fillText(this.interations, ctx.canvas.width/2, ctx.canvas.height-100);
         
     }
     Start(ctx){
+        if(this.displayTriangle){
+            this.startTriangle(ctx);
+        }else{
+            this.startGame(ctx);
+        }
         
-        this.startGame(ctx);
         
         
     }
