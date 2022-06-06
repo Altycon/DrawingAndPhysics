@@ -107,7 +107,15 @@ const CVectors = {
         return radian * 180/Math.PI;
     },
     MidPoint(vector1,vector2){
-        return new Vector((vector1.x + vector2.x)/2, (vector1.y + vector2.y)/2);
+        const vector = new Vector((vector1.x + vector2.x), (vector1.y + vector2.y));
+        vector.multiply(0.5)
+        return vector;
+        //return new Vector((vector1.x + vector2.x)*0.5, (vector1.y + vector2.y)*0.5);
+    },
+    findPoint(vector1,vector2,distance){
+        const vector = new Vector((vector1.x + vector2.x), (vector1.y + vector2.y));
+        vector.multiply(distance)
+        return vector;
     }
 }
 export { Vector, UnitVector, CVectors };

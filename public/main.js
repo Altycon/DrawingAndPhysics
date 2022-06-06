@@ -37,7 +37,7 @@ const {
 
 
 const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
-
+    let d = 0.5;
     let lastTime;
     const animate = (timestamp)=>{
         if(lastTime != null){
@@ -53,8 +53,11 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
             // if(CANVAS_BUTTON.pressed){
             //     CHAOS_SHAPE.numberOfPoints++;
             // }
+            CHAOS_SHAPE.distance = d;
             CHAOS_SHAPE.Start(actx);
-            
+
+            //d += -0.005;
+            if(d <= 0) d = -0.5;
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -85,8 +88,9 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
     const CANVAS_BUTTON = new CanvasButton(AnimationCanvas, 300, 100);
     CANVAS_BUTTON.text = 'Touch'
     const SIZE = ANIMATION_CANVAS_WIDTH/2 > ANIMATION_CANVAS_HIEGHT/2 ? ANIMATION_CANVAS_HIEGHT/2:ANIMATION_CANVAS_WIDTH/2;
-    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE,true);
+    const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE);
     CHAOS_SHAPE.setTriangleVertices(ANIMATION_CANVAS_WIDTH,ANIMATION_CANVAS_HIEGHT);
+    CHAOS_SHAPE.distance = -0.5;
     
     animateCanvas(ctx, actx, CANVAS_BUTTON,CHAOS_SHAPE);
 

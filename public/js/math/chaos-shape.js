@@ -19,6 +19,7 @@ export class ChaosShape{
         this.vertices = [];
         this.size = size;
         this.solidColor = color;
+        this.distance = 0.5;
      
         for(let i = 0; i < this.numberOfPoints; i++){
         	const angle = i * (Math.PI*2)/this.numberOfPoints;
@@ -61,7 +62,7 @@ export class ChaosShape{
     update(){
         
         const [vertex,color] = this.getVertex();
-        const v = CVectors.MidPoint(this.points[0].position, vertex.position);
+        const v = CVectors.findPoint(this.points[0].position, vertex.position, this.distance);
         const point = new Point(v.x, v.y, 0, 1);
         point.setColor(color[0],color[1],color[2],color[3]);
         // point.setColor(180,100,50,.1);
@@ -123,7 +124,7 @@ export class ChaosShape{
     }
     updateTriangle(){
         const [vertex,color] = this.getTriangleVertex();
-        const v = CVectors.MidPoint(this.points[0].position, vertex.position);
+        const v = CVectors.findPoint(this.points[0].position, vertex.position, this.distance);
         const point = new Point(v.x, v.y, 0, 1);
         point.setColor(color[0],color[1],color[2],color[3]);
         // point.setColor(180,100,50,.1);
