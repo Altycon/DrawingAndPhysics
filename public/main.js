@@ -11,6 +11,7 @@ import { Graph } from "./js/graphs/graph.js";
 import { MandelbrotFractal } from "./js/math/mandelbrot.js";
 import { ChaosShape } from "./js/math/chaos-shape.js";
 import { CanvasButton } from "./js/components/canvas-button.js";
+import { Wrap } from "./js/math/wrap-algorithm.js";
 
 const { 
         random, 
@@ -36,8 +37,8 @@ const {
  */
 
 
-const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
-    let d = 0.5;
+const animateCanvas = (ctx,actx,CHAOS_SHAPE, Wrapped_Figure)=>{
+    
     let lastTime;
     const animate = (timestamp)=>{
         if(lastTime != null){
@@ -49,15 +50,12 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
             //graph.render(ctx);
             //MANDELBROT_FRACTAL.render();
 
-            //CANVAS_BUTTON.render();
-            // if(CANVAS_BUTTON.pressed){
-            //     CHAOS_SHAPE.numberOfPoints++;
-            // }
-            CHAOS_SHAPE.distance = d;
-            CHAOS_SHAPE.Start(actx);
+            
+            // CHAOS_SHAPE.distance = d;
+            // CHAOS_SHAPE.Start(actx);
 
-            //d += -0.005;
-            if(d <= 0) d = -0.5;
+            Wrapped_Figure.Start();
+
         }
         lastTime = timestamp;
         requestAnimationFrame(animate)
@@ -72,7 +70,6 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
     const actx = AnimationCanvas.getContext('2d');
     const ANIMATION_CANVAS_WIDTH = AnimationCanvas.width;
     const ANIMATION_CANVAS_HIEGHT = AnimationCanvas.height;
-
     const canvas = document.getElementById('canvas');
     fixCanvasForMobile(canvas)
     const ctx = canvas.getContext('2d');
@@ -89,10 +86,28 @@ const animateCanvas = (ctx,actx,CANVAS_BUTTON, CHAOS_SHAPE)=>{
     CANVAS_BUTTON.text = 'Touch'
     const SIZE = ANIMATION_CANVAS_WIDTH/2 > ANIMATION_CANVAS_HIEGHT/2 ? ANIMATION_CANVAS_HIEGHT/2:ANIMATION_CANVAS_WIDTH/2;
     const CHAOS_SHAPE = new ChaosShape(ANIMATION_CANVAS_WIDTH/2,ANIMATION_CANVAS_HIEGHT/2, 5, SIZE);
-    CHAOS_SHAPE.setTriangleVertices(ANIMATION_CANVAS_WIDTH,ANIMATION_CANVAS_HIEGHT);
-    CHAOS_SHAPE.distance = -0.5;
+    //CHAOS_SHAPE.setTriangleVertices(ANIMATION_CANVAS_WIDTH,ANIMATION_CANVAS_HIEGHT);
+    //CHAOS_SHAPE.distance = -0.5;
+
+    const points = [];
+    const buffer = ANIMATION_CANVAS_WIDTH*0.1;
+    for(let i = 0; i < 500; i++){
+        const degree = 360;
+        const angle = random(0, degree) * Math.PI;
+        const distance = random(0, 400);
+        // const x = random(buffer, ANIMATION_CANVAS_WIDTH - buffer);
+        // const y = random(buffer, ANIMATION_CANVAS_HIEGHT - buffer);
+        const x = ANIMATION_CANVAS_WIDTH/2 + distance * Math.cos(angle);
+        const y = ANIMATION_CANVAS_HIEGHT/2 + distance * Math.sin(angle);
+        const point = new Point(x,y,0,2);
+        point.setColor(180,100,50);
+        points.push(point);
+    }
     
-    animateCanvas(ctx, actx, CANVAS_BUTTON,CHAOS_SHAPE);
+    const Wrapped_Figure = new Wrap(AnimationCanvas,points);
+    Wrapped_Figure.Start();
+    
+    animateCanvas(ctx, actx, CHAOS_SHAPE, Wrapped_Figure);
 
 })();
 

@@ -40,6 +40,12 @@ class Vector{
         if(length !==0) this.multiply(1/length);
         return this;
     }
+    crossProduct(vector){
+        const x = this.y * vector.z - this.z * vector.y;
+        const y = this.z * vector.x - this.x * vector.z;
+        const z = this.x * vector.y - this.y * vector.x;
+        return new Vector(x,y,z);
+    }
 }
 
 class UnitVector{
@@ -99,6 +105,12 @@ const CVectors = {
     },
     DotProduct: (vector1, vector2)=>{
         return ((vector1.x * vector2.x)+(vector1.y * vector2.y))
+    },
+    CrossProduct: (vector1, vector2)=> {
+        const x = vector1.y * vector2.z - vector1.z * vector2.y;
+        const y = vector1.z * vector2.x - vector1.x * vector2.z;
+        const z = vector1.x * vector2.y - vector1.y * vector2.x;
+        return new Vector(x,y,z);
     },
     AngleBetweenRadians: (vector1, vector2)=>{
         return Math.atan2(vector2.y - vector1.y, vector2.x - vector1.x)
