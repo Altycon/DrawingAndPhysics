@@ -1,6 +1,7 @@
 "use strict";
 
 export const Tools = {
+    TWOPI: Math.PI*2,
     random: (min,max,bool)=> bool? Math.floor(Math.random()*(max-min)+min):Math.random()*(max-min)+min,
     scale: (number,inMin,inMax,outMin,outMax)=>{
         return (number - inMin)*(outMax-outMin)/(inMax-inMin)+outMin;
